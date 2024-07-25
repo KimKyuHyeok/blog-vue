@@ -4,19 +4,24 @@
         <UpdateCategory/>
         <DeleteCategory/>
     </div>
+    <div>
+        <PostButton/>
+    </div>
 </template>
 
 <script>
-import AddCategory from '@/components/admin/AddCategory.vue';
-import UpdateCategory from '../../components/admin/UpdateCategory.vue';
-import DeleteCategory from '../../components/admin/DeleteCategory.vue';
+import AddCategory from '@/components/admin/category/AddCategory.vue';
+import UpdateCategory from '@/components/admin/category/UpdateCategory.vue';
+import DeleteCategory from '@/components/admin/category/DeleteCategory.vue';
+import PostButton from '@/components/admin/post/PostButton.vue';
 
 export default {
     name: 'AdminPage',
     components: {
         AddCategory,
         UpdateCategory,
-        DeleteCategory
+        DeleteCategory,
+        PostButton
     }
 }
 </script>
