@@ -34,7 +34,7 @@ const updateCategory = async () => {
 
 		if (response.status === 200) {
 			alert('카테고리 수정이 완료되었습니다.')
-			router.push('/admin')
+			router.go(0)
 		}
 	} catch (err) {
 		if (err.response && err.response.status === 400) {
