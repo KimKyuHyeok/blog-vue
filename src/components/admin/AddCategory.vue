@@ -23,7 +23,7 @@ const addCategory = async () => {
 
 		if (response.status === 200) {
 			alert('카테고리 등록이 완료되었습니다.')
-			router.push('/admin')
+			router.go(0)
 		} else {
 			alert('에러가 발생했습니다.');
 		}
