@@ -1,58 +1,48 @@
-<template>
-    <div class="post">
-        <h1>{{ PostInfo.title }}</h1>
-        <p v-html="PostInfo.content"></p>
-    </div>
-</template>
-
-<script>
+<script setup>
 import axios from 'axios'
 import { onMounted, reactive } from 'vue'
-import { useRoute } from 'vue-router';
+import { useRoute } from 'vue-router'
 
-export default {
-    name: 'PostInfo',
-    setup () {
-        const route = useRoute();
-        const postId = route.params.id;
+const route = useRoute()
+const postId = route.params.id
 
-        const PostInfo = reactive ({
-            title: '',
-            content: ''
-        })
+const PostInfo = reactive({
+	title: '',
+	content: '',
+})
 
-        onMounted(() => {
-            let url = `/api/post/${postId}`;
-            axios.get(url)
-                .then(response => {
-                    PostInfo.title = response.data.title;
-                    PostInfo.content = response.data.content;
-                })
-                .catch(err => {
-                    console.log("ERROR : ", err);
-                })
-        });
-        
-
-        return {
-            PostInfo
-        }
-    }
-}
-
+onMounted(() => {
+	let url = `/api/post/${postId}`
+	axios
+		.get(url)
+		.then((response) => {
+			PostInfo.title = response.data.title
+			PostInfo.content = response.data.content
+		})
+		.catch((err) => {
+			console.log('ERROR : ', err)
+		})
+})
 </script>
 
-<style>
+<template>
+	<div class="post">
+		<h1>{{ PostInfo.title }}</h1>
+		<p v-html="PostInfo.content"></p>
+	</div>
+</template>
+
+<style scoped>
 .post > h1 {
-    margin-bottom: 8%;
-    text-align: center;
+	margin-bottom: 8%;
+	text-align: center;
 }
 
 .post > p {
-    text-align: start;
+	text-align: start;
 }
 
 .image {
-    text-align: center;
+	text-align: center;
 }
 </style>
