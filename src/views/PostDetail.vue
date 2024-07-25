@@ -29,7 +29,6 @@ li {
 }
 
 #main {
-	flex: 0 0 60%;
 	display: flex;
 	margin-left: auto;
 	margin-top: 10%;
