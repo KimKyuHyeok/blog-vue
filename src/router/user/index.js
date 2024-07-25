@@ -1,25 +1,23 @@
-import Home from '@/views/Home';
-import PostDetail from '@/views/PostDetail'
-import PasswordConfirm from '@/views/admin/PasswordConfirm';
-
+import Home from '@/views/Home.vue'
+import PostDetail from '@/views/PostDetail.vue'
+import PasswordConfirm from '@/views/admin/PasswordConfirm.vue'
 
 const userRoutes = [
-  {
-    path: '/password',
-    name: 'PasswordConfirm',
-    component: PasswordConfirm,
-  },
-  {
-    path: '/posts/:id',
-    name: 'PostDetail',
-    component: PostDetail,
-  },
-  {
-    path: '/',
-    name: 'Home',
-    component: Home,
-  },
-];
+	{
+		path: '/',
+		name: 'Home',
+		component: Home,
+	},
+	{
+		path: '/password',
+		name: 'PasswordConfirm',
+		component: PasswordConfirm,
+	},
+	{
+		path: '/posts/:id',
+		name: 'PostDetail',
+		component: PostDetail,
+	},
+]
 
-
-export default userRoutes;
+export default userRoutes
