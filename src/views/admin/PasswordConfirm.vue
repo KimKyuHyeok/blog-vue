@@ -13,7 +13,12 @@ import PasswordInput from '@/components/PasswordInput.vue'
 
 <style scoped>
 #main {
+	display: flex;
 	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	height: 50vh;
+	width: 100vh;
 }
 
 #password > h1 {
