@@ -1,16 +1,19 @@
 <template>
     <div id="main">
         <AddCategory/>
+        <UpdateCategory/>
     </div>
 </template>
 
 <script>
 import AddCategory from '@/components/admin/AddCategory.vue';
+import UpdateCategory from '../../components/admin/UpdateCategory.vue';
 
 export default {
     name: 'AdminPage',
     components: {
-        AddCategory
+        AddCategory,
+        UpdateCategory
     }
 }
 </script>
