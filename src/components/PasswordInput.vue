@@ -1,14 +1,14 @@
 <script setup>
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
-import axios from 'axios'
+import apiClient from '../config/apiClient';
 
 const router = useRouter()
 const password = ref('')
 
 const submitPassword = async () => {
 	try {
-		const response = await axios.post('/api/password/confirm', { password: password.value })
+		const response = await apiClient.post('/api/password/confirm', { password: password.value })
 
 		if (response.status === 200) {
 			localStorage.setItem('token', response.data.token)
@@ -43,14 +43,16 @@ const submitPassword = async () => {
 <style scoped>
 .input-group.mb-3 {
 	display: flex;
-	flex-direction: column;
+	align-items: center;
 }
 
 .input-group.mb-3 .form-control {
-	margin-bottom: 0.5rem;
+	margin-bottom: 0;
+	width: auto;
+	flex: 1;
 }
 
 .input-group.mb-3 .btn {
-	align-self: flex-end;
+	margin-left: 0.5rem;
 }
 </style>

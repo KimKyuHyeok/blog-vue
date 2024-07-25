@@ -1,6 +1,6 @@
 <script setup>
-import axios from 'axios'
 import { onMounted, reactive } from 'vue'
+import apiClient from '../config/apiClient';
 
 const PostInfo = reactive({
 	title: '',
@@ -9,7 +9,7 @@ const PostInfo = reactive({
 
 onMounted(() => {
 	let url = '/api/post'
-	axios
+	apiClient
 		.get(url)
 		.then((response) => {
 			PostInfo.title = response.data.title
