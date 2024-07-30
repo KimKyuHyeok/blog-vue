@@ -11,9 +11,10 @@ export default defineConfig({
 		extensions: ['.js', '.vue', '.json'], // 여기에 '.vue' 추가
 	},
 	server: {
+		port: 80,
 		proxy: {
 		  '/api': {
-			target: 'http://localhost:80',
+			target: 'http://localhost:8080',
 			changeOrigin: true,
 			rewrite: (path) => path.replace(/^\/api/, ''),
 		  },
