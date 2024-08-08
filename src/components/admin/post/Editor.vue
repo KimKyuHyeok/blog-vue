@@ -1,0 +1,94 @@
+<template>
+  <div>
+    <select id="category" v-model="selectedCategory">
+      <option value="" disabled>카테고리 선택</option>
+      <option v-for="category in categories" :key="category.id" :value="category.id">
+        {{ category.title }}
+      </option>
+    </select>
+    <input type="text" v-model="title">
+    <div ref="editorRoot"></div>
+    <button @click="submitPost">작성하기</button>
+  </div>
+</template>
+
+<script setup>
+import { ref, onMounted, onBeforeUnmount } from 'vue'
+import { Editor } from '@toast-ui/editor'
+import apiClient from '@/config/apiClient'
+import { useRouter } from 'vue-router';
+
+const router = useRouter();
+const categories = ref([])
+const selectedCategory = ref(null)
+const editorRoot = ref(null)
+const title = ref('')
+const token = localStorage.getItem('token');
+let editorInstance = null
+
+const fetchCategories = async () => {
+  try {
+    const response = await apiClient.get('/api/admin/list/category',
+     {
+          headers: {
+                'Authorization': `Bearer ${token}`
+          }
+      }
+    )
+    console.log(response.data)
+    categories.value = response.data
+  } catch (err) {
+    console.error('Error fetching categories:', err)
+  }
+}
+
+onMounted(() => {
+  editorInstance = new Editor({
+    el: editorRoot.value,
+    height: '500px',
+    initialEditType: 'markdown',
+    previewStyle: 'vertical',
+    initialValue: 'Hello, Toast UI Editor!'
+  })
+  fetchCategories()
+})
+
+onBeforeUnmount(() => {
+  if (editorInstance) {
+    editorInstance.destroy()
+  }
+})
+
+const submitPost = async () => {
+  if (editorInstance) {
+    const postData = {
+
+    }
+
+    try {
+      const response = await apiClient.post('/api/admin/add/post',
+        {
+          title: title.value,
+          content: editorInstance.getHTML(),
+          categoryId: selectedCategory.value
+        },
+        {
+          headers: {
+                'Authorization': `Bearer ${token}`
+          }
+        }
+      )
+      if (response.status === 200) {
+        alert('게시글 작성 완료')
+        router.go(0)
+      }
+    } catch (error) {
+      console.error('Error submitting post:', error)
+    }
+  }
+}
+</script>
+
+<style>
+@import url('https://uicdn.toast.com/editor/latest/toastui-editor.min.css');
+</style>

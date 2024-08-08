@@ -4,7 +4,7 @@ import { useRouter } from 'vue-router';
 const router = useRouter();
 
 const postWriteLink = () => {
-    router.push('/admin/post-write')
+    router.push('/admin/post/write')
 }
 
 const postAdminLink = () => {

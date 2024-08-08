@@ -9,8 +9,10 @@ import 'bootstrap-vue-next/dist/bootstrap-vue-next.css'
 // bootstrap-vue-next
 import { createBootstrap } from 'bootstrap-vue-next'
 import axios from 'axios'
+import VueCodeHighlight from 'vue-code-highlight'
 
 const app = createApp(App)
+app.use(VueCodeHighlight);
 const bootstrapVue = createBootstrap(app)
 app.use(router)
 app.use(bootstrapVue)
