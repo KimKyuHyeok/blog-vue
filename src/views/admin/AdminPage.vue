@@ -4,7 +4,7 @@
         <UpdateCategory/>
         <DeleteCategory/>
     </div>
-    <div>
+    <div class="button-group">
         <PostButton/>
     </div>
 </template>
@@ -34,5 +34,9 @@ export default {
 
 #password > h1 {
     margin-bottom: 30%;
+}
+
+.button-group {
+    margin: 10%;
 }
 </style>

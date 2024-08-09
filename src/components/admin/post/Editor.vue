@@ -1,12 +1,12 @@
 <template>
   <div>
-    <select id="category" v-model="selectedCategory">
-      <option value="" disabled>카테고리 선택</option>
+    <select id="category" v-model="selectedCategory" class="form-select">
+      <option value="" selected disabled>카테고리 선택</option>
       <option v-for="category in categories" :key="category.id" :value="category.id">
         {{ category.title }}
       </option>
     </select>
-    <input type="text" v-model="title">
+    <input type="text" class="form-control" placeholder="제목을 입력해주세요" v-model="title">
     <div ref="editorRoot"></div>
     <button @click="submitPost">작성하기</button>
   </div>
@@ -42,13 +42,35 @@ const fetchCategories = async () => {
   }
 }
 
+const imageUpload = async (blob, callback) => {
+  const formData = new FormData();
+  formData.append('image', blob);
+
+  try {
+    const reponse = await apiClient.post('/api/admin/image-upload', formData, {
+      headers: {
+        'Authorization': `Bearer ${token}`,
+        'Content-Type': 'multipart/form-data'
+      }
+    })
+
+    if (response.status === 200) {
+      const imageUrl = response.data.url;
+      callback(imageUrl, '이미지')
+    }
+  } catch (err) {
+    alert('Image Upload Error');
+    console.error('Error Upload Image : ', err)
+  }
+}
+
 onMounted(() => {
   editorInstance = new Editor({
     el: editorRoot.value,
     height: '500px',
     initialEditType: 'markdown',
     previewStyle: 'vertical',
-    initialValue: 'Hello, Toast UI Editor!'
+    initialValue: ''
   })
   fetchCategories()
 })
