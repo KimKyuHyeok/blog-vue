@@ -42,35 +42,37 @@ const fetchCategories = async () => {
   }
 }
 
-const imageUpload = async (blob, callback) => {
-  const formData = new FormData();
-  formData.append('image', blob);
-
-  try {
-    const reponse = await apiClient.post('/api/admin/image-upload', formData, {
-      headers: {
-        'Authorization': `Bearer ${token}`,
-        'Content-Type': 'multipart/form-data'
-      }
-    })
-
-    if (response.status === 200) {
-      const imageUrl = response.data.url;
-      callback(imageUrl, '이미지')
-    }
-  } catch (err) {
-    alert('Image Upload Error');
-    console.error('Error Upload Image : ', err)
-  }
-}
-
 onMounted(() => {
   editorInstance = new Editor({
     el: editorRoot.value,
     height: '500px',
     initialEditType: 'markdown',
     previewStyle: 'vertical',
-    initialValue: ''
+    initialValue: '',
+    hooks: {
+      async addImageBlobHook(blob,callback) {
+        const formData = new FormData();
+        formData.append('image', blob);
+
+        try {
+          const response = await apiClient.post('/api/admin/image-upload', formData, {
+            headers: {
+              'Authorization': `Bearer ${token}`,
+              'Content-Type': 'multipart/form-data'
+            }
+          })
+
+          if (response.status === 200) {
+            const filename = response.data.filename;
+            const imageUrl = `http://localhost:8080/image/${filename}`
+            callback(imageUrl, '이미지')
+          }
+        } catch (err) {
+          alert('Image Upload Error');
+          console.error('Error Upload Image : ', err)
+        }
+      }
+    }
   })
   fetchCategories()
 })
