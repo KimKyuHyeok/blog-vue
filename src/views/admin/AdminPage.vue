@@ -1,11 +1,13 @@
 <template>
     <div id="main">
-        <AddCategory/>
-        <UpdateCategory/>
-        <DeleteCategory/>
-    </div>
-    <div class="button-group">
-        <PostButton/>
+        <div class="category-group">
+            <AddCategory/>
+            <UpdateCategory/>
+            <DeleteCategory/>
+        </div>
+        <div class="button-group">
+            <PostButton/>
+        </div>
     </div>
 </template>
 

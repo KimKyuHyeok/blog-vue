@@ -14,7 +14,7 @@ const postAdminLink = () => {
 
 <template>
 	<div>
-        <nav>
+        <nav class="btn-list">
             <button class="btn btn-outline-primary" @click="postWriteLink">게시글 작성</button>
             <button class="btn btn-outline-warning" @click="postAdminLink">게시글 관리</button>
         </nav>
@@ -22,6 +22,12 @@ const postAdminLink = () => {
 </template>
 
 <style scoped>
+.btn-list {
+    display: flex;
+}
 
-
+.btn-list > button {
+    margin: 10px;
+    width: 120px;
+}
 </style>
