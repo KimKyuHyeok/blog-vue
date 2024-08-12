@@ -11,6 +11,7 @@ export default defineConfig({
 		extensions: ['.js', '.vue', '.json'], // 여기에 '.vue' 추가
 	},
 	server: {
+		host: '0.0.0.0',
 		port: 80,
 		proxy: {
 		  '/api': {
