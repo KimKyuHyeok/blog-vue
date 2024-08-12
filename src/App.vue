@@ -20,7 +20,7 @@ import SideMenu from '@/components/header/SideHeader.vue'
 	display: flex;
 	justify-content: center;
 	border-right: 1px solid #ccc;
-	background-image: url('http://localhost:8080/image/bg.jpg');
+	background-image: url('http://kyuhyeok.site:8080/image/bg.jpg');
 	background-size: cover;
 	background-attachment: fixed;
 	background-position: center;

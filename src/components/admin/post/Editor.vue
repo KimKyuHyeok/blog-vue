@@ -64,7 +64,7 @@ onMounted(() => {
 
           if (response.status === 200) {
             const filename = response.data.filename;
-            const imageUrl = `http://localhost:8080/image/${filename}`
+            const imageUrl = `http://kyuhyeok.site:8080/image/${filename}`
             callback(imageUrl, '이미지')
           }
         } catch (err) {
