@@ -5,6 +5,7 @@
       <option v-for="category in categories" :key="category.id" :value="category.id">
         {{ category.title }}
       </option>
+      <div>{{  categories }}</div>
     </select>
     <input type="text" class="form-control" placeholder="제목을 입력해주세요" v-model="title">
     <div ref="editorRoot"></div>
@@ -35,8 +36,8 @@ const fetchCategories = async () => {
           }
       }
     )
-    console.log(response.data)
     categories.value = response.data
+    console.log(categories.value);
   } catch (err) {
     console.error('Error fetching categories:', err)
   }
@@ -84,6 +85,10 @@ onBeforeUnmount(() => {
 })
 
 const submitPost = async () => {
+
+  if (selectedCategory.value === null || selectedCategory.value === '') throw alert('카테고리를 선택해주세요.')
+  if (title.value === null || title.value === '') throw alert('제목을 입력해주세요.')
+
   if (editorInstance) {
     const postData = {
 
