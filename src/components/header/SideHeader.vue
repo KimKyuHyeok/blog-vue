@@ -13,7 +13,8 @@ import SideMenu from '@/components/header/Menu.vue'
 				</ul>
 			</nav>
 		</div>
-		<SideMenu></SideMenu>
+		<SideMenu/>
+		
 	</div>
 </template>
 

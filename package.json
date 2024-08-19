@@ -10,22 +10,24 @@
 		"lint": "vue-cli-service lint"
 	},
 	"dependencies": {
+		"@ckeditor/ckeditor5-vue": "^7.0.0",
 		"@tiptap/core": "^2.5.9",
 		"@tiptap/pm": "^2.5.9",
 		"@tiptap/starter-kit": "^2.5.9",
 		"@tiptap/vue-3": "^2.5.9",
-		"@toast-ui/editor": "^3.2.2",
 		"@vitejs/plugin-vue": "^5.0.5",
 		"axios": "^1.7.2",
 		"bootstrap": "^5.3.3",
 		"bootstrap-vue-next": "^0.24.2",
+		"ckeditor5": "^43.0.0",
 		"core-js": "^3.8.3",
 		"highlight.js": "^11.10.0",
-		"lexical": "^0.17.0",
+		"marked": "^14.0.0",
 		"vue": "^3.2.13",
 		"vue-code-highlight": "^0.7.8",
 		"vue-quill-editor": "^3.0.6",
-		"vue-router": "^4.4.0"
+		"vue-router": "^4.4.0",
+		"vue3-highlightjs": "^1.0.5"
 	},
 	"devDependencies": {
 		"@babel/core": "^7.12.16",

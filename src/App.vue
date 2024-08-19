@@ -15,7 +15,7 @@ import SideMenu from '@/components/header/SideHeader.vue'
 #header {
 	position: fixed;
 	flex: 0 0 40%;
-	width: 60vh;
+	width: 50vh;
 	height: 100vh;
 	display: flex;
 	justify-content: center;
