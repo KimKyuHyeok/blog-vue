@@ -1,123 +1,203 @@
 <template>
-  <div>
-    <select id="category" v-model="selectedCategory" class="form-select">
-      <option value="" selected disabled>카테고리 선택</option>
-      <option v-for="category in categories" :key="category.id" :value="category.id">
-        {{ category.title }}
-      </option>
-      <div>{{  categories }}</div>
-    </select>
-    <input type="text" class="form-control" placeholder="제목을 입력해주세요" v-model="title">
-    <div ref="editorRoot"></div>
-    <button @click="submitPost">작성하기</button>
-  </div>
+	<div class="category">
+	  <select id="category" v-model="selectedCategory" class="form-select">
+		<option value="" selected disabled>카테고리 선택</option>
+		<option v-for="category in categories" :key="category.id" :value="category.id">
+		  {{ category.title }}
+		</option>
+	  </select>
+	</div>
+	<div class="titleInput">
+	  <input type="text" class="form-control" placeholder="제목을 입력해주세요" v-model="title" />
+	</div>
+	<div>
+	  <div class="main-container">
+		<div class="editor-container editor-container_classic-editor" ref="editorContainerElement">
+		  <div class="editor-container__editor">
+			<div ref="editorElement">
+			  <ckeditor v-if="isLayoutReady" v-model="content" :editor="editor" :config="config" />
+			</div>
+		  </div>
+		</div>
+	  </div>
+	</div>
+	<button class="btn btn-primary" @click="submitPost">작성하기</button>
 </template>
-
+  
 <script setup>
-import { ref, onMounted, onBeforeUnmount } from 'vue'
-import { Editor } from '@toast-ui/editor'
-import apiClient from '@/config/apiClient'
-import { useRouter } from 'vue-router';
+	import { ref, onMounted } from 'vue';
+	import {
+		ClassicEditor,
+		AccessibilityHelp,
+		Autoformat,
+		AutoLink,
+		Autosave,
+		Bold,
+		Code,
+		CodeBlock,
+		Essentials,
+		GeneralHtmlSupport,
+		Heading,
+		HtmlEmbed,
+		Italic,
+		Link,
+		Paragraph,
+		SelectAll,
+		ShowBlocks,
+		Table,
+		TableCaption,
+		TableCellProperties,
+		TableColumnResize,
+		TableProperties,
+		TableToolbar,
+		TextTransformation,
+		Undo
+	} from 'ckeditor5';
+	import apiClient from '@/config/apiClient'
+	import { useRouter } from 'vue-router';
+  
+	import 'ckeditor5/ckeditor5.css';
 
-const router = useRouter();
-const categories = ref([])
-const selectedCategory = ref(null)
-const editorRoot = ref(null)
-const title = ref('')
-const token = localStorage.getItem('token');
-let editorInstance = null
+	const editor = ClassicEditor;
+	const config = ref(null);
+	const isLayoutReady = ref(false);
+	const selectedCategory = ref('');
+	const title = ref('');
+	const categories = ref([]);
+	const router = useRouter();
+	const token = localStorage.getItem('token');
+	const content = ref('')
 
-const fetchCategories = async () => {
-  try {
-    const response = await apiClient.get('/api/admin/list/category',
-     {
-          headers: {
-                'Authorization': `Bearer ${token}`
-          }
-      }
-    )
-    categories.value = response.data
-    console.log(categories.value);
-  } catch (err) {
-    console.error('Error fetching categories:', err)
-  }
-}
+	const fetchCategories = async () => {
+		try {
+			const response = await apiClient.get('/api/admin/list/category', {
+				headers: {
+					'Authorization': `Bearer ${token}`
+				}
+			})
 
-onMounted(() => {
-  editorInstance = new Editor({
-    el: editorRoot.value,
-    height: '500px',
-    initialEditType: 'markdown',
-    previewStyle: 'vertical',
-    initialValue: '',
-    hooks: {
-      async addImageBlobHook(blob,callback) {
-        const formData = new FormData();
-        formData.append('image', blob);
+			categories.value = response.data
+		} catch (err) {
+			console.error('Error featch categories : ', err)
+		}
+	}
 
-        try {
-          const response = await apiClient.post('/api/admin/image-upload', formData, {
-            headers: {
-              'Authorization': `Bearer ${token}`,
-              'Content-Type': 'multipart/form-data'
-            }
-          })
+	
+	const setupConfig = () => {
+		config.value = {
+		toolbar: {
+			items: [
+			'undo',
+			'redo',
+			'|',
+			'showBlocks',
+			'selectAll',
+			'|',
+			'heading',
+			'|',
+			'bold',
+			'italic',
+			'code',
+			'|',
+			'link',
+			'insertTable',
+			'codeBlock',
+			'htmlEmbed',
+			'|',
+			'accessibilityHelp'
+			],
+			shouldNotGroupWhenFull: false
+		},
+		plugins: [
+			AccessibilityHelp,
+			Autoformat,
+			AutoLink,
+			Autosave,
+			Bold,
+			Code,
+			CodeBlock,
+			Essentials,
+			GeneralHtmlSupport,
+			Heading,
+			HtmlEmbed,
+			Italic,
+			Link,
+			Paragraph,
+			SelectAll,
+			ShowBlocks,
+			Table,
+			TableCaption,
+			TableCellProperties,
+			TableColumnResize,
+			TableProperties,
+			TableToolbar,
+			TextTransformation,
+			Undo
+		],
+		heading: {
+			options: [
+			{ model: 'paragraph', title: 'Paragraph', class: 'ck-heading_paragraph' },
+			{ model: 'heading1', view: 'h1', title: 'Heading 1', class: 'ck-heading_heading1' },
+			{ model: 'heading2', view: 'h2', title: 'Heading 2', class: 'ck-heading_heading2' },
+			{ model: 'heading3', view: 'h3', title: 'Heading 3', class: 'ck-heading_heading3' },
+			{ model: 'heading4', view: 'h4', title: 'Heading 4', class: 'ck-heading_heading4' },
+			{ model: 'heading5', view: 'h5', title: 'Heading 5', class: 'ck-heading_heading5' },
+			{ model: 'heading6', view: 'h6', title: 'Heading 6', class: 'ck-heading_heading6' }
+			]
+		},
+		htmlSupport: {
+			allow: [
+			{ name: /^.*$/, styles: true, attributes: true, classes: true }
+			]
+		},
+		initialData: '',
+		link: {
+			addTargetToExternalLinks: true,
+			defaultProtocol: 'https://',
+			decorators: {
+			toggleDownloadable: {
+				mode: 'manual',
+				label: 'Downloadable',
+				attributes: { download: 'file' }
+			}
+			}
+		},
+		menuBar: { isVisible: true },
+		placeholder: 'Type or paste your content here!',
+		table: {
+			contentToolbar: ['tableColumn', 'tableRow', 'mergeTableCells', 'tableProperties', 'tableCellProperties']
+		}
+		};
+	};
+	
+	onMounted(() => {
+		setupConfig();
+		isLayoutReady.value = true;
+		fetchCategories()
+	});
 
-          if (response.status === 200) {
-            const filename = response.data.filename;
-            const imageUrl = `http://kyuhyeok.site:8080/image/${filename}`
-            callback(imageUrl, '이미지')
-          }
-        } catch (err) {
-          alert('Image Upload Error');
-          console.error('Error Upload Image : ', err)
-        }
-      }
-    }
-  })
-  fetchCategories()
-})
+	const submitPost = async() => {
+		if (selectedCategory.value === null || selectedCategory.value === '') throw alert('카테고리를 선택해주세요.')
+		if (title.value === null || title.value === '') throw alert('제목을 입력해주세요.')
 
-onBeforeUnmount(() => {
-  if (editorInstance) {
-    editorInstance.destroy()
-  }
-})
-
-const submitPost = async () => {
-
-  if (selectedCategory.value === null || selectedCategory.value === '') throw alert('카테고리를 선택해주세요.')
-  if (title.value === null || title.value === '') throw alert('제목을 입력해주세요.')
-
-  if (editorInstance) {
-    const postData = {
-
-    }
-
-    try {
-      const response = await apiClient.post('/api/admin/add/post',
-        {
-          title: title.value,
-          content: editorInstance.getHTML(),
-          categoryId: selectedCategory.value
-        },
-        {
-          headers: {
-                'Authorization': `Bearer ${token}`
-          }
-        }
-      )
-      if (response.status === 200) {
-        alert('게시글 작성 완료')
-        router.go(0)
-      }
-    } catch (error) {
-      console.error('Error submitting post:', error)
-    }
-  }
-}
+		try {
+			const response = await apiClient.post('/api/admin/add/post', {
+				title: title.value,
+				content: content.value,
+				categoryId: selectedCategory.value
+			},
+			{
+				headers: {
+					'Authorization': `Bearer ${token}`
+				}
+			})
+			if (response.status === 200) {
+				alert('게시글 작성 완료')
+				router.go(0)
+			}
+		} catch (err) {
+			console.error('Error submit post : ', err)
+		}
+	}
 </script>
-
-<style>
-@import url('https://uicdn.toast.com/editor/latest/toastui-editor.min.css');
-</style>
+  

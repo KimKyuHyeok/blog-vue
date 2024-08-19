@@ -80,11 +80,13 @@ const leave = (el, done) => {
 }
 
 .posts > li > a {
-	text-decoration: none;
-	margin-left: 3vh;
-	color: rgba(255, 255, 255, 0.5);
-	font-size: 12px;
-	white-space: nowrap;
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 12px;
+    display: block; /* a 태그가 블록처럼 동작하도록 하기 */
+	white-space: nowrap; /* 줄바꿈 없이 한 줄로 유지 */
+    overflow: hidden;    /* 넘치는 텍스트 숨기기 */
+    text-overflow: ellipsis; /* 넘치는 텍스트에 '...' 추가 (선택 사항) */
 }
 
 .posts > li > a:hover {
@@ -115,6 +117,6 @@ const leave = (el, done) => {
 }
 
 .categories {
-	margin-right: 10%;
+	margin-right: auto;
 }
 </style>

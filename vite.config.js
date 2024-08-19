@@ -7,6 +7,7 @@ export default defineConfig({
 	resolve: {
 		alias: {
 			'@': path.resolve(__dirname, './src'),
+			'@ckeditor': path.resolve(__dirname, 'node_modules/@ckeditor'),
 		},
 		extensions: ['.js', '.vue', '.json'], // 여기에 '.vue' 추가
 	},
@@ -21,4 +22,7 @@ export default defineConfig({
 		  },
 		},
 	},
+	optimizeDeps: {
+		include: ['@ckeditor/ckeditor5-vue']
+	}
 })
