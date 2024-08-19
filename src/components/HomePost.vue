@@ -1,19 +1,47 @@
 <script setup>
-import { onMounted, reactive } from 'vue'
-import apiClient from '../config/apiClient';
+import "highlight.js/styles/github-dark-dimmed.css";
+import apiClient from '@/config/apiClient';
+import { nextTick, onMounted, reactive, ref } from 'vue'
+import { useRoute } from 'vue-router'
+import hljs from 'highlight.js';
+
+const route = useRoute()
+const postId = route.params.id
+const categoryName = ref('')
+const postList = ref([])
 
 const PostInfo = reactive({
 	title: '',
 	content: '',
 })
 
-onMounted(() => {
-	let url = '/api/post'
+const applyHighlight = () => {
+	nextTick(() => {
+		const blocks = document.querySelectorAll('pre code, code[class^="language-"]')
+		blocks.forEach((block) => {
+			hljs.highlightElement(block);
+		})
+	})
+}
+
+onMounted(() => { 
+	let url = `/api/post`
 	apiClient
 		.get(url)
 		.then((response) => {
 			PostInfo.title = response.data.title
 			PostInfo.content = response.data.content
+			applyHighlight();
+		})
+		.catch((err) => {
+			console.log('ERROR : ', err)
+		});
+
+	let listUrl = `/api/post/home/info`
+	apiClient
+		.get(listUrl)
+		.then((response) => {
+			postList.value = response.data
 		})
 		.catch((err) => {
 			console.log('ERROR : ', err)
@@ -23,30 +51,64 @@ onMounted(() => {
 
 <template>
 	<div class="post">
-		<h1>{{ PostInfo.title }}</h1>
-		<p v-html="PostInfo.content"></p>
+		<h3 class="title">{{ PostInfo.title }}</h3>
+		<p v-html="PostInfo.content" class="content"></p>
+	</div>
+	<div class="list">
+		<h4>최신 글 모아보기</h4>
+		<div v-for="post in postList" :key="post.id">
+			<a :href="`/posts/${post.id}`">{{ post.title }}</a>
+		</div>
 	</div>
 </template>
 
 <style scoped>
-.post > h1 {
-	margin-bottom: 8%;
-	text-align: center;
+
+.list {
+	margin-top: 100px;
+	padding: 20px;
+	width: 400px;
+	border: 1px solid #E5E5E5;
 }
 
-.post > p {
+.list > h4 {
+	font-size: 12px;
+	margin: 0;
+	border-bottom: 1px solid #E5E5E5;
+	padding: 2px 0 6px;
+	color: #222;
+	font-weight: bold;
+	padding-bottom: 10px;
+}
+
+.list > div > a {
+	color: #737373;
+	font-weight: normal;
+	text-decoration: none;
+	border: none;
+	text-align: left;
+	font-size: 12px;
+	line-height: 1.5;
+}
+
+.post, .content {
+	margin-right: 150px;
+	width: 1000px;
+}
+
+.title {
+	border-bottom: 1px solid #efefef;
+	padding-bottom: 30px;
+    font-weight: normal;
+    font-size: 34px;
+    line-height: 43px;
+    color: #222;
+}
+
+.content {
+	padding-top: 30px;
+	padding-bottom: 60px;
 	text-align: start;
-}
-
-.image {
-	text-align: center;
-}
-
-p {
-	margin-bottom: 30px;
-}
-
-pre {
-	margin: 30px 0;
+	border-bottom: 1px solid #efefef;
 }
 </style>
