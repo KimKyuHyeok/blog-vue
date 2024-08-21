@@ -21,6 +21,9 @@ export default defineConfig({
 			rewrite: (path) => path.replace(/^\/api/, ''),
 		  },
 		},
+		fs: {
+			exclude: ['.git']
+		}
 	},
 	optimizeDeps: {
 		include: ['@ckeditor/ckeditor5-vue']
