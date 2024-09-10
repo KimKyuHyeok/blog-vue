@@ -49,6 +49,12 @@ const deletePost = (postId) => {
         })
 }
 
+const updatePost = (postId) => {
+    let url = `http://localhost:3000/admin/post/edit/${postId}`
+
+    router.push({ name: 'PostEditAdmin', params: { postId }});
+}
+
 </script>
 
 <template>
@@ -67,7 +73,7 @@ const deletePost = (postId) => {
                     <th>{{ post.title }}</th>
                     <th>
                         <div class="button-list">
-                            <button class="btn btn-outline-primary">수정</button>
+                            <button class="btn btn-outline-primary" @click="updatePost(post.id)">수정</button>
                             <button class="btn btn-outline-danger" @click="deletePost(post.id)">삭제</button>
                         </div>
                     </th>
