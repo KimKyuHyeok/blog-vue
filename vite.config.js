@@ -23,7 +23,10 @@ export default defineConfig({
 		},
 		fs: {
 			exclude: ['.git']
-		}
+		},
+		hmr: {
+			overlay: false
+		},
 	},
 	optimizeDeps: {
 		include: ['@ckeditor/ckeditor5-vue']
