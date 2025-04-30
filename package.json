@@ -1,7 +1,6 @@
 {
 	"name": "gyublog",
 	"version": "0.0.1",
-	"type": "module",
 	"private": true,
 	"scripts": {
 		"serve": "vue-cli-service serve",
