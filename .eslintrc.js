@@ -10,5 +10,8 @@ module.exports = {
 	},
 	rules: {
 		'vue/multi-word-component-names': 'off',
+		'no-useless-escape': 'warn',
+		'no-unused-vars': 'warn',
+		'vue/no-deprecated-destroyed-lifecycle': 'warn'
 	},
 }
