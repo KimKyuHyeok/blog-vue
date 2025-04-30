@@ -1,7 +1,7 @@
 <script>
 import MainHeader from '@/components/MainHeader.vue'
 import SideMenu from '@/components/SideMenu.vue'
-import PostDetail from '@/components/PostDetail.vue'
+import SearchResultDetail from '@/components/SearchResultDetail.vue'
 import SearchBar from '@/components/SearchBar.vue'
 
 export default {
@@ -9,7 +9,7 @@ export default {
     components: {
         MainHeader,
         SideMenu,
-        PostDetail,
+        SearchResultDetail,
         SearchBar
     }
 }
@@ -22,7 +22,7 @@ export default {
             <SearchBar/>
             <SideMenu/>
         </div>
-        <PostDetail/>
+        <SearchResultDetail/>
     </div>
 </template>
 

@@ -1,32 +1,30 @@
-import AdminPage from '@/views/admin/AdminPage.vue'
-import PostAdminPage from '@/views/admin/PostAdminPage.vue'
-import PostEditAdmin from '@/views/admin/PostEditAdmin.vue'
-import PostWriteAdmin from '@/views/admin/PostWriteAdmin.vue'
-import { component } from 'vue-code-highlight'
+import AdminLoginPage from '@/views/admin/AdminLoginPage.vue'
+import AdminMainPage from '@/views/admin/AdminMainPage.vue'
+import AdminPost from '@/views/admin/AdminPost.vue'
+import AdminPostUpdate from '@/views/admin/AdminPostUpdate.vue'
 
 const adminRoutes = [
 	{
 		path: '/admin',
 		name: 'AdminPage',
-		component: AdminPage,
+		component: AdminLoginPage,
+	},
+	{
+		path: '/admin/home',
+		name: 'AdminHome',
+		component: AdminMainPage,
 		meta: { requiresAuth: true },
 	},
 	{
-		path: '/admin/post-list',
-		name: 'PostAdminPage',
-		component: PostAdminPage,
-		meta: { requiresAuth: true }
+		path: '/post/create',
+		name: 'PostWrite',
+		component: AdminPost,
+		meta: { requiresAuth: true },
 	},
 	{
-		path: '/admin/post/write',
-		name: 'PostWriteAdmin',
-		component: PostWriteAdmin,
-		meta: { requiresAuth: true }
-	},
-	{
-		path: '/admin/post/edit/:postId',
-		name: 'PostEditAdmin',
-		component: PostEditAdmin,
+		path: '/post/update/:id',
+		name: 'PostUpdate',
+		component: AdminPostUpdate,
 		meta: { requiresAuth: true }
 	}
 ]

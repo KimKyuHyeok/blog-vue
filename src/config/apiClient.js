@@ -1,17 +1,16 @@
 import axios from 'axios';
 
-const BASE_URL = 'http://kyuhyeok.site:8080';
-// const BASE_URL = 'http://localhost:8080';
+const API_URL = process.env.API_URL;
 
 const apiClient = axios.create({
-    baseURL: BASE_URL,
+    baseURL: API_URL,
     headers: {
         'Content-Type': 'application/json'
     }
 });
 
 apiClient.interceptors.request.use(config => {
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem('admin_token');
     if (token) {
         config.headers['Authorization'] = `Bearer ${token}`;
     }
