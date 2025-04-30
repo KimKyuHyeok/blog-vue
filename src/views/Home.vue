@@ -1,37 +1,42 @@
-<script setup>
-import PostInfo from '@/components/HomePost.vue'
+<script>
+import MainHeader from '@/components/MainHeader.vue'
+import SideMenu from '@/components/SideMenu.vue'
+import PostDetail from '@/components/PostDetail.vue'
+import SearchBar from '@/components/SearchBar.vue'
+
+export default {
+    name: 'Home',
+    components: {
+        MainHeader,
+        SideMenu,
+        PostDetail,
+        SearchBar
+    }
+}
 </script>
 
 <template>
-	<div id="main">
-		<PostInfo id="post"></PostInfo>
-	</div>
+    <MainHeader/>
+    <div class="content-layout">
+        <div class="side-layout">
+            <SearchBar/>
+            <SideMenu/>
+        </div>
+        <PostDetail/>
+    </div>
 </template>
 
 <style scoped>
-ul,
-ol,
-li {
-	list-style-type: none;
-	padding: 0; /* 패딩을 제거하려면 추가 */
-	margin: 0; /* 마진을 제거하려면 추가 */
+.content-layout {
+    display: flex;
+    max-width: 1600px;
+    margin: 1 auto;
+    padding: 40px;
+    gap: 40px;
 }
 
-#app {
-	display: flex;
-}
-
-#main {
-	/* flex: 0 0 60%; */
-	display: flex;
-	margin-left: auto;
-	margin-top: 10%;
-	align-items: center;
-	justify-content: center;
-}
-
-#post {
-	width: 100%;
-	text-align: center;
+.side-layout {
+    display: flex;
+    flex-direction: column;
 }
 </style>
