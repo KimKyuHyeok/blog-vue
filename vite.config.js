@@ -4,7 +4,7 @@ import path from 'path'
 import { createHtmlPlugin } from 'vite-plugin-html'
 
 export default defineConfig({
-	base: './src',
+	base: '/',
 	plugins: [
 		vue(),
 		createHtmlPlugin({
