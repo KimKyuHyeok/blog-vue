@@ -14,13 +14,6 @@ export default defineConfig({
 	server: {
 		host: '0.0.0.0',
 		port: 80,
-		proxy: {
-		  '/api': {
-			target: 'http://kyuhyeok.site:8080',
-			changeOrigin: true,
-			rewrite: (path) => path.replace(/^\/api/, ''),
-		  },
-		},
 		fs: {
 			exclude: ['.git']
 		},
@@ -28,7 +21,4 @@ export default defineConfig({
 			overlay: false
 		},
 	},
-	optimizeDeps: {
-		include: ['@ckeditor/ckeditor5-vue']
-	}
 })
