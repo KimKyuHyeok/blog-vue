@@ -1,9 +1,19 @@
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
 import path from 'path'
+import { createHtmlPlugin } from 'vite-plugin-html'
 
 export default defineConfig({
-	plugins: [vue()],
+	plugins: [
+		vue(),
+		createHtmlPlugin({
+			inject: {
+				data: {
+					title: '[개발 기록] - Blog'
+				}
+			}
+		})
+	],
 	resolve: {
 		alias: {
 			'@': path.resolve(__dirname, './src'),
