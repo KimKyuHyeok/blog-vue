@@ -2,13 +2,15 @@
     <div class="post-container">
 
     <div class="category-container">
-        <div v-if="!categories.length">카테고리를 선택하세요</div>
-        <select v-if="categories.length" v-model="selectedCategoryId" class="category-select">
-        <option value="" disabled>카테고리를 선택하세요</option>
-        <option v-for="category in categories" :key="category.id" :value="category.id">
-            {{ category.name }}
-        </option>
-        </select>
+        <div v-if="categories.length">
+            <select v-model="selectedCategoryId" class="category-select">
+                <option :value="null" disabled>카테고리를 선택하세요</option>
+                <option v-for="category in categories" :key="category.id" :value="category.id">
+                {{ category.name }}
+                </option>
+            </select>
+        </div>
+        <div v-else>카테고리를 선택하세요</div>
     </div>
     <div class="title-container">
         <input type="text" v-model="title" placeholder="제목을 입력하세요" class="title-input" />
@@ -30,7 +32,7 @@ export default {
         return {
             title: '',
             categories: [],
-            selectedCategoryId: '',
+            selectedCategoryId: null,
             editor: null,
         };
     },
