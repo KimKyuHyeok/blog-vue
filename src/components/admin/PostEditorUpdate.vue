@@ -109,6 +109,7 @@
             id: boardId,
             title: this.title,
             content: content,
+            categoryId: this.selectedCategoryId
         };
   
         try {

@@ -18,7 +18,7 @@
           <h3>카테고리 리스트</h3>
           <ul>
             <li v-for="category in categories" :key="category.id">
-              <input v-model="category.name" />
+              <input :value="category.name" @input="e => category.name = e.target.value" />
               <button @click="updateCategory(category)">수정</button>
               <button @click="deleteCategory(category.id)">삭제</button>
             </li>
@@ -48,7 +48,7 @@
   
   <script setup>
   import apiClient from '@/config/apiClient'
-import { ref, onMounted } from 'vue'
+  import { ref, onMounted } from 'vue'
   import { useRouter } from 'vue-router'
   
   const activeTab = ref('category')
@@ -65,8 +65,7 @@ import { ref, onMounted } from 'vue'
   
   const fetchCategories = async () => {
     const { data } = await apiClient.get('/category/categories')
-    categories.value = data
-    console.log(data);
+    categories.value = data.map((c) => reactive({ ...c }))
   }
   
   const createCategory = async () => {
