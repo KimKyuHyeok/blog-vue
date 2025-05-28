@@ -48,7 +48,7 @@
   
   <script setup>
   import apiClient from '@/config/apiClient'
-  import { ref, onMounted } from 'vue'
+  import { ref, onMounted, reactive } from 'vue'
   import { useRouter } from 'vue-router'
   
   const activeTab = ref('category')
