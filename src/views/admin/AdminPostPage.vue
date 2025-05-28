@@ -3,7 +3,7 @@ import AdminPost from '@/components/admin/PostEditor.vue'
 
 
 export default {
-    name: 'AdminPost',
+    name: 'AdminPostPage',
     components: {
         AdminPost
     }
