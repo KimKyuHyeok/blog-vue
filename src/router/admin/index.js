@@ -1,6 +1,6 @@
 import AdminLoginPage from '@/views/admin/AdminLoginPage.vue'
 import AdminMainPage from '@/views/admin/AdminMainPage.vue'
-import AdminPost from '@/views/admin/AdminPost.vue'
+import AdminPostPage from '@/views/admin/AdminPostPage.vue'
 import AdminPostUpdate from '@/views/admin/AdminPostUpdate.vue'
 
 const adminRoutes = [
@@ -18,7 +18,7 @@ const adminRoutes = [
 	{
 		path: '/post/create',
 		name: 'PostWrite',
-		component: AdminPost,
+		component: AdminPostPage,
 		meta: { requiresAuth: true },
 	},
 	{
